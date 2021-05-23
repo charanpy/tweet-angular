@@ -1,0 +1,31 @@
+<main class="container auth-wrapper">
+  <div class="auth-container flex-column flex-center">
+    <section>
+      <img src="/assets/img.png" width="100" height="100" alt="Tweet-dev" />
+    </section>
+    <section class="form-wrapper">
+      <mat-tab-group mat-align-tabs="start" dynamicHeight>
+        <mat-tab label="LOGIN">
+          <form class="form">
+            <ng-container *ngTemplateOutlet="emailAndPassword"></ng-container>
+          </form>
+        </mat-tab>
+        <mat-tab label="REGISTER">Content 2</mat-tab>
+      </mat-tab-group>
+    </section>
+  </div>
+</main>
+<ng-template #emailAndPassword>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" />
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+  </p>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" formControlName="'email'" />
+    <mat-icon matSuffix>lock</mat-icon>
+  </mat-form-field>
+</ng-template>
