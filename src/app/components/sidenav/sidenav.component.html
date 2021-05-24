@@ -1,0 +1,59 @@
+<div class="nav-container" [class.nav-is-mobile]="mobileQuery.matches">
+  <mat-sidenav-container
+    class="nav-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="100"
+      class="nav flex-column nav-wrap"
+      opened
+    >
+      <div class="logo">
+        <img src="/assets/img.png" width="50" alt="logo" />
+      </div>
+      <div class="nav-items">
+        <div class="menu">
+          <h1>MENU</h1>
+        </div>
+        <app-nav-items
+          (actionEmitter)="onNavClick($event)"
+          [iconName]="'home'"
+          [routeName]="'Home'"
+          [navigateTo]="'/'"
+        ></app-nav-items>
+        <app-nav-items
+          (actionEmitter)="onNavClick($event)"
+          [iconName]="'account_circle'"
+          [routeName]="'Profile'"
+          [navigateTo]="'/profile'"
+        ></app-nav-items>
+        <app-nav-items
+          (actionEmitter)="onNavClick($event)"
+          [iconName]="'search'"
+          [routeName]="'Browse'"
+          [navigateTo]="'/browse'"
+        ></app-nav-items>
+        <app-nav-items
+          (actionEmitter)="onNavClick($event)"
+          [iconName]="'send'"
+          [routeName]="'Tweets'"
+          [navigateTo]="'/tweets'"
+        ></app-nav-items>
+      </div>
+      <div class="logout-container">
+        <app-nav-items
+          (actionEmitter)="onNavClick($event)"
+          [iconName]="'logout'"
+          [routeName]="'Logout'"
+        ></app-nav-items>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <app-header></app-header>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

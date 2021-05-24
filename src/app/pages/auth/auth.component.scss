@@ -1,11 +1,11 @@
 @import 'src/color';
 
 .auth-wrapper {
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   background: $color-black-primary;
   .auth-container {
-    margin-top: 3rem;
+    margin: 3rem 0;
   }
   .form-wrapper{
     margin-top: 2rem;
@@ -14,9 +14,22 @@
   .form {
     margin-top:1rem;
   }
+  button {
+    color: white;
+  }
+  .btn-auth {
+    background: #00e676;
+    margin-bottom: 1rem;
+  }
+  .btn-google {
+    background: $color-secondary-blue;
+  }
 }
 
 input {
+  &:active,&:focus{
+    background: transparent !important;
+  }
   &::placeholder{
     color: inherit;
   }

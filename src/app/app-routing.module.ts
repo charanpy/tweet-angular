@@ -11,6 +11,7 @@ import {
 // pages
 import { HomeComponent } from './pages/home/home.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { PagesnotfoundComponent } from './pages/pagesnotfound/pagesnotfound.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInHome = () => redirectLoggedInTo(['']);
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: '**',
+    component: PagesnotfoundComponent,
   },
 ];
 

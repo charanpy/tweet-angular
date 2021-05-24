@@ -1,0 +1,34 @@
+@import "src/color";
+
+header{
+  min-height:10vh;
+  background-color:$color-black-primary-main;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .brand-name {
+    margin-left: 1rem;
+
+    h1{
+      font-size: 25px;
+      font-weight: 500;
+      color:rgba(255,255,255,1);
+      font-family: 'Roboto Slab',sans-serif;
+
+    }
+  }
+
+  .username {
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;      
+      margin-left: .7rem;
+      font-family: 'Roboto Slab',
+      sans-serif;
+
+      font-size: 19px;
+      font-weight: 400;
+  }
+}

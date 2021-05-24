@@ -1,0 +1,57 @@
+@import "src/color";
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-is-mobile .nav-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.nav-app-name {
+  margin-left: 8px;
+}
+
+.nav-sidenav-container {
+  flex: 1;
+}
+
+.nav-is-mobile .nav-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.nav {
+  width: 20%;
+  background: $color-black-primary;
+}
+
+.nav-wrap {
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    text-align: center;
+    margin: 1.8rem 0;
+  }
+  .menu {
+    padding: 1rem;
+    margin: 0;
+    h1 {
+      font-size: 14px;
+      color: $color-secondary-grey;
+      font-weight: 400;
+    }
+  }
+}
+
+.logout-container {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}

@@ -12,8 +12,8 @@ h2,
 h3,
 h4,
 p {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .container {
@@ -33,3 +33,31 @@ p {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.button {
+  width: 228px;
+  padding: 8px !important;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.error-msg {
+  background: red;
+  color: white;
+}
+.success-msg {
+  background: #00e676;
+  color: white;
+}
+ul,li{
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+  position: relative;
+  margin-bottom: 0;
+}
