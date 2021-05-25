@@ -105,7 +105,8 @@ export class AuthComponent implements OnInit {
     localStorage.setItem('blog-angular', username);
     this.auth
       .signUp(email, password)
-      .then(() => {
+      .then((detail) => {
+        userData.id = detail.user?.uid;
         const user: UserModel = this.auth.validateUserId(userData);
         if (user?.id)
           this.auth

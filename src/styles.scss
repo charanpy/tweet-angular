@@ -1,3 +1,5 @@
+// dark-theme
+
 @import '~@angular/material/_theming.scss';
 @include mat-core();
 
@@ -27,6 +29,10 @@ p {
   justify-content: center;
 }
 
+.flex-row {
+  display: flex;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -52,12 +58,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: white;
 }
 ul,li{
-  text-decoration: none;
+  text-decoration: none !important;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 .mat-drawer-inner-container {
   overflow: hidden !important;
   position: relative;
   margin-bottom: 0;
+}
+.icon {
+  cursor: pointer;
+}
+
+.app-content {
+  background: #0f0f0f;
+  min-height: 100vh;
+}
+
+.green {
+  color:#00e676;
+}
+
+#file {
+  display: none;
 }

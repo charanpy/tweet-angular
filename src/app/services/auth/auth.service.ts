@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class AuthService {
+  user: UserModel | null = null;
   constructor(
     private auth: AngularFireAuth,
     private firestore: AngularFirestore
@@ -24,6 +25,15 @@ export class AuthService {
 
   getUser() {
     return this.auth.authState;
+  }
+
+  setUserInfo(user: UserModel) {
+    this.user = user;
+  }
+  setUser(uid: string) {
+    if (this.user) return;
+
+    return this.firestore.collection('users').doc(uid).get();
   }
 
   onGoogleSignIn() {
@@ -76,12 +86,13 @@ export class AuthService {
           .subscribe((res) => {
             if (!res?.exists) {
               if (user && user?.email && user?.displayName && user?.uid) {
-                const { email, displayName, uid } = user;
+                const { email, displayName, uid, photoURL } = user;
                 const userData: UserModel = {
                   email: email,
                   id: uid,
                   username: displayName,
                   bio: 'BlogDev User',
+                  photo: photoURL ? photoURL : null,
                 };
                 const userDetail: UserModel = this.validateUserId(userData);
                 if (userDetail?.id) {
@@ -102,5 +113,13 @@ export class AuthService {
     } catch (error) {
       throw new Error();
     }
+  }
+
+  subscribeToUser() {
+    return this.firestore.doc(`users/${this.user?.id}`).valueChanges();
+  }
+
+  updateProfileDetails(userData: { username: string; bio: string }) {
+    return this.firestore.doc(`users/${this.user?.id}`).update(userData);
   }
 }

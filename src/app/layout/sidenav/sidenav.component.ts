@@ -45,10 +45,15 @@ export class SidenavComponent implements OnDestroy {
   }
 
   async onNavClick(e: string | undefined) {
+    if (e === '/') {
+      this.router.navigate(['']);
+      return;
+    }
     if (e) {
       this.router.navigateByUrl(`/${e}`);
       return;
     }
+
     try {
       await this.auth.signOut();
       this.toastr.openSnackBar('Logged out successfully!', 'success');

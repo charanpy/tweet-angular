@@ -3,4 +3,5 @@ export interface UserModel {
   email: string;
   username: string;
   bio?: string;
+  photo?: string | null;
 }
