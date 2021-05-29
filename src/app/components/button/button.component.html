@@ -1,0 +1,10 @@
+<button
+  mat-button
+  class="button"
+  [style.backgroundColor]="color"
+  [type]="type"
+  [ngClass]="[customFont ? 'custom-font' : '']"
+  (click)="OnClick()"
+>
+  <ng-content></ng-content>
+</button>

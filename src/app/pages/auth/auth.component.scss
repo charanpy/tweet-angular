@@ -14,24 +14,5 @@
   .form {
     margin-top:1rem;
   }
-  button {
-    color: white;
-  }
-  .btn-auth {
-    background: #00e676;
-    margin-bottom: 1rem;
-  }
-  .btn-google {
-    background: $color-secondary-blue;
-  }
+  
 }
-
-input {
-  &:active,&:focus{
-    background: transparent !important;
-  }
-  &::placeholder{
-    color: inherit;
-  }
-}
-

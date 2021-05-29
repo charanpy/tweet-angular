@@ -1,0 +1,28 @@
+main {
+  section {
+    h1 {
+      font-size: 33px;
+      font-weight: 300;
+    }
+  }
+  form {
+    margin: 2rem 0;
+    .attach{
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+label{
+  font-weight: 400;
+}
+.close{
+  margin-left: 10px;
+  .close-btn{
+    color: red;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}

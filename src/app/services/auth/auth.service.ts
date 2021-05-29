@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { UserModel } from '.././../models/user.model';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -8,8 +9,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   user: UserModel | null = null;
+  subscription: Subscription = new Subscription();
+
   constructor(
     private auth: AngularFireAuth,
     private firestore: AngularFirestore
@@ -30,9 +33,8 @@ export class AuthService {
   setUserInfo(user: UserModel) {
     this.user = user;
   }
-  setUser(uid: string) {
-    if (this.user) return;
 
+  setUser(uid: string) {
     return this.firestore.collection('users').doc(uid).get();
   }
 
@@ -67,11 +69,13 @@ export class AuthService {
   updateProfile(): string | undefined {
     const name: string | null = localStorage.getItem('blog-angular');
     if (name) {
-      this.auth.authState.subscribe((res) => {
-        res
-          ?.updateProfile({ displayName: name })
-          .then(() => localStorage.removeItem('blog-angular'));
-      });
+      this.subscription.add(
+        this.auth.authState.subscribe((res) => {
+          res
+            ?.updateProfile({ displayName: name })
+            .then(() => localStorage.removeItem('blog-angular'));
+        })
+      );
       return name;
     }
     return;
@@ -80,30 +84,36 @@ export class AuthService {
   googleSignIn() {
     try {
       return this.onGoogleSignIn().then(({ user }) => {
-        this.firestore
-          .doc(`user/${user && user.uid}`)
-          .get()
-          .subscribe((res) => {
-            if (!res?.exists) {
-              if (user && user?.email && user?.displayName && user?.uid) {
-                const { email, displayName, uid, photoURL } = user;
-                const userData: UserModel = {
-                  email: email,
-                  id: uid,
-                  username: displayName,
-                  bio: 'BlogDev User',
-                  photo: photoURL ? photoURL : null,
-                };
-                const userDetail: UserModel = this.validateUserId(userData);
-                if (userDetail?.id) {
-                  return this.createUser(userDetail, userDetail.id);
+        this.subscription.add(
+          this.firestore
+            .doc(`users/${user && user.uid}`)
+            .get()
+            .subscribe((res) => {
+              if (!res?.exists) {
+                console.log('not exist');
+
+                if (user && user?.email && user?.displayName && user?.uid) {
+                  const { email, displayName, uid, photoURL } = user;
+                  const userData: UserModel = {
+                    email: email,
+                    id: uid,
+                    username: displayName,
+                    bio: 'BlogDev User',
+                    photo: photoURL || null,
+                  };
+                  const userDetail: UserModel = this.validateUserId(userData);
+                  if (userDetail?.id) {
+                    return this.createUser(userDetail, userDetail.id);
+                  }
+                  throw new Error('id not exists');
                 }
-                throw new Error('id not exists');
+                throw new Error("can't retrieve data");
               }
-              throw new Error("can't retrieve data");
-            }
-            return;
-          });
+              console.log('exist');
+
+              return;
+            })
+        );
 
         return {
           success: true,
@@ -119,7 +129,22 @@ export class AuthService {
     return this.firestore.doc(`users/${this.user?.id}`).valueChanges();
   }
 
-  updateProfileDetails(userData: { username: string; bio: string }) {
+  updateProfileDetails(userData: {
+    username?: string;
+    bio?: string;
+    photo?: string;
+  }) {
     return this.firestore.doc(`users/${this.user?.id}`).update(userData);
+  }
+
+  getId() {
+    return this.user?.id || null;
+  }
+
+  getTimestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -48,13 +48,20 @@
           </form>
         </mat-tab>
       </mat-tab-group>
-      <button mat-button class="button btn-google" (click)="onGoogleSignIn()">
+      <!-- <button mat-button class="button btn-google" (click)="onGoogleSignIn()">
         SIGN IN WITH GOOGLE
-      </button>
+      </button> -->
+      <app-button
+        (buttonClickAction)="onGoogleSignIn()"
+        [customFont]="true"
+        [color]="'#0094ff'"
+        >SIGN IN WITH GOOGLE</app-button
+      >
     </section>
   </div>
 </main>
 
 <ng-template #buttonAuth>
-  <button mat-button class="button btn-auth">{{ currentOperation }}</button>
+  <!-- <button mat-button class="button btn-auth">{{ currentOperation }}</button> -->
+  <app-button [customFont]="true">{{ currentOperation }}</app-button>
 </ng-template>

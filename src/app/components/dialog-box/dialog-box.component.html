@@ -1,0 +1,14 @@
+<div class="flex-column flex-center">
+  <h2 mat-dialog-title class="custom-font">SELECTED IMAGE</h2>
+  <mat-dialog-content>
+    <img [src]="image.image" alt="tweet-image" width="300" height="300" />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <app-button
+      [customFont]="true"
+      (buttonClickAction)="onCloseDialog()"
+      color="red"
+      >CLOSE</app-button
+    >
+  </mat-dialog-actions>
+</div>

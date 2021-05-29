@@ -1,0 +1,25 @@
+<div [ngTemplateOutlet]="image" *ngIf="selectedImage"></div>
+<label
+  *ngIf="!selectedImage"
+  for="tweet_file"
+  class="attach custom-font green flex-row flex-center icon"
+>
+  <mat-icon>attachment</mat-icon>{{ "  " }}Select Images
+</label>
+<input
+  type="file"
+  accept="image/*"
+  id="tweet_file"
+  (change)="selectImage($event)"
+/>
+
+<ng-template #image>
+  <div class="flex-row">
+    <label class="green custom-font icon underline" (click)="openDialog()">{{
+      selectedImage?.name
+    }}</label>
+    <span class="close icon" (click)="resetImage()"
+      ><mat-icon class="icon close-btn">close</mat-icon></span
+    >
+  </div>
+</ng-template>

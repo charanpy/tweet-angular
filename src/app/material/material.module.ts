@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const MaterialComponents = [
   MatTabsModule,
@@ -17,6 +18,7 @@ const MaterialComponents = [
   MatSnackBarModule,
   MatSidenavModule,
   MatProgressSpinnerModule,
+  MatDialogModule,
 ];
 
 @NgModule({

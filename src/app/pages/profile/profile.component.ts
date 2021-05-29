@@ -1,4 +1,3 @@
-import { UploadImageService } from './../../services/upload-image/upload-image.service';
 import {
   Component,
   ElementRef,
@@ -10,6 +9,9 @@ import { ToastrService } from 'src/app/services/toatr/toastr.service';
 import { UserModel } from './../../models/user.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../services/auth/auth.service';
+import { UploadImageService } from './../../services/upload-image/upload-image.service';
+import { fileValidator } from 'src/app/utils/file-validator';
+import { FileValidator } from 'src/app/models/file-validator.model';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +21,9 @@ import { AuthService } from './../../services/auth/auth.service';
 export class ProfileComponent implements OnInit, OnDestroy {
   user: UserModel | null = null;
   editAction: boolean = false;
-  subscribe: Subscription | null = null;
+
+  profileSubscription: Subscription = new Subscription();
+
   @ViewChild('username') username: ElementRef | null = null;
   @ViewChild('bio') bio: ElementRef | null = null;
 
@@ -30,15 +34,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscribe = this.auth.subscribeToUser().subscribe((user) => {
+    console.log('triggered');
+    this.profileSubscription = this.auth.subscribeToUser().subscribe((user) => {
       this.user = user as UserModel;
+      console.log(user, 333);
       this.auth.setUserInfo(user as UserModel);
     });
-    this.user = this.auth.user;
-  }
-
-  ngOnDestroy() {
-    this.subscribe?.unsubscribe();
   }
 
   onEditProfile(): void {
@@ -72,9 +73,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   upload(e: Event) {
     const file = (<HTMLInputElement>e.target).files;
-    if (file?.length) {
-      const image = file[0];
-      console.log(this.storage.uploadImage(image));
+    if (file) {
+      const validatedFile: FileValidator = fileValidator(file);
+      if (!validatedFile.message) {
+        validatedFile.file &&
+          this.storage
+            .uploadImage(
+              validatedFile.file,
+              'profile',
+              this.user?.photo || null
+            )
+            .then((photo) => this.auth.updateProfileDetails({ photo }));
+        return;
+      }
+      this.toastr.openSnackBar(validatedFile?.message, 'error');
     }
+  }
+  ngOnDestroy() {
+    this.profileSubscription.unsubscribe();
   }
 }

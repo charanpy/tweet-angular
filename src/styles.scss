@@ -77,10 +77,19 @@ ul,li{
   min-height: 100vh;
 }
 
+.background {
+  background: #0f0f0f;
+
+}
+
 .green {
   color:#00e676;
 }
 
-#file {
+#file,#tweet_file {
   display: none;
+}
+
+.custom-font{
+  font-family: 'Roboto Slab',sans-serif!important;
 }

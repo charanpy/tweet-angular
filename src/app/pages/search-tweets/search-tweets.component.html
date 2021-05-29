@@ -1,0 +1,17 @@
+<app-sidenav>
+  <main class="app-content search-container flex-column">
+    <form class="flex-column flex-center" (submit)="onSearch()">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Search by hashtag</mat-label>
+          <input matInput type="text" required minlength="2" #hashtag />
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <app-button [type]="'submit'" [customFont]="true">SEARCH</app-button>
+      </p>
+    </form>
+  </main>
+</app-sidenav>

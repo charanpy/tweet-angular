@@ -16,7 +16,6 @@ header{
          font-size: 25px;
          font-weight: 500;
          color: rgba(255, 255, 255, 1);
-         font-family: 'Roboto Slab', sans-serif;
        }
     }
    
@@ -30,5 +29,10 @@ header{
       transform: translateY(-7px);
     }
   }
+
+}
+
+.active {
+      transform: translateY(-7px);
 
 }

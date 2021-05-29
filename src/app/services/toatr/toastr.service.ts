@@ -9,7 +9,7 @@ export class ToastrService {
 
   constructor(private _snackBar: MatSnackBar) {}
 
-  openSnackBar(message: string, type: string) {
+  openSnackBar(message: string, type: string = 'success') {
     this._snackBar.open(message, 'close', {
       duration: 5000,
       verticalPosition: 'top',

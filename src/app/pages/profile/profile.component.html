@@ -2,7 +2,11 @@
   <main class="app-content flex-column flex-center">
     <section>
       <figure class="flex-column flex-center">
-        <img src="assets/user.png" alt="user-profile" width="120" />
+        <img
+          [src]="user?.photo ? user?.photo : 'assets/user.png'"
+          alt="user-profile"
+          width="120"
+        />
         <figcaption class="mat-body green icon" for="file">
           <label for="file" class="icon">Change Profile Photo</label>
           <input type="file" id="file" (change)="upload($event)" />
@@ -37,9 +41,9 @@
             <mat-error></mat-error>
           </mat-form-field>
         </p>
-        <button class="button" mat-button>
+        <app-button [customFont]="true">
           {{ editAction ? "SUBMIT" : "EDIT PROFILE" }}
-        </button>
+        </app-button>
       </form>
     </section>
   </main>

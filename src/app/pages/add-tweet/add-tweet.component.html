@@ -1,0 +1,71 @@
+<app-sidenav>
+  <main class="app-content flex-column flex-center">
+    <section class="header">
+      <h1 class="mat-body custom-font">Add Tweet</h1>
+    </section>
+    <form
+      #f="ngForm"
+      (ngSubmit)="OnPostTweet(f)"
+      class="flex-column flex-center"
+    >
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            type="text"
+            minlength="2"
+            name="title"
+            ngModel
+            required
+          />
+          <mat-icon matSuffix>title</mat-icon>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Tweet body</mat-label>
+          <textarea
+            matInput
+            minlength="2"
+            name="tweet"
+            ngModel
+            required
+          ></textarea>
+          <mat-icon matSuffix>send</mat-icon>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </p>
+      <!-- <div [ngTemplateOutlet]="image" *ngIf="selectedImage"></div>
+      <label
+        *ngIf="!selectedImage"
+        for="tweet_file"
+        class="attach custom-font green flex-row flex-center icon"
+      >
+        <mat-icon>attachment</mat-icon>{{ "  " }}Select Image
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        id="tweet_file"
+        (change)="selectImage($event)"
+      /> -->
+      <app-select-image
+        (sendSelectedImage)="setImage($event)"
+      ></app-select-image>
+      <app-button [customFont]="true">POST</app-button>
+    </form>
+  </main>
+</app-sidenav>
+
+<ng-template #image>
+  <div class="flex-row">
+    <label class="green custom-font icon underline" (click)="openDialog()">{{
+      selectedImage?.name
+    }}</label>
+    <span class="close icon" (click)="resetImage()"
+      ><mat-icon class="icon close-btn">close</mat-icon></span
+    >
+  </div>
+</ng-template>

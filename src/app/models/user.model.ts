@@ -5,3 +5,5 @@ export interface UserModel {
   bio?: string;
   photo?: string | null;
 }
+
+export type StringOrNull = string | null;
