@@ -13,5 +13,8 @@
         <app-button [type]="'submit'" [customFont]="true">SEARCH</app-button>
       </p>
     </form>
+    <h2 class="mat-body-1 custom-font" *ngIf="tweetMessage()">
+      No Tweets found!
+    </h2>
   </main>
 </app-sidenav>

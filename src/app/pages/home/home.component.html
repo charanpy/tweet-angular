@@ -1,3 +1,8 @@
-<app-sidenav>
-  <main class="app-content"></main>
+<mat-spinner diameter="60" *ngIf="loading"></mat-spinner>
+<app-sidenav *ngIf="!loading">
+  <main class="app-content flex-column center">
+    <section class="mb" *ngFor="let tweet of tweets">
+      <app-tweet-item [tweet]="tweet"></app-tweet-item>
+    </section>
+  </main>
 </app-sidenav>

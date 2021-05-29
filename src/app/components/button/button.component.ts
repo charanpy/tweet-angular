@@ -15,6 +15,9 @@ export class ButtonComponent implements OnInit {
   @Input()
   customFont: boolean = false;
 
+  @Input()
+  disabled: boolean = false;
+
   @Output() buttonClickAction = new EventEmitter<void>();
 
   constructor() {}

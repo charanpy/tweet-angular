@@ -10,8 +10,6 @@ import { UserModel } from './../../models/user.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../services/auth/auth.service';
 import { UploadImageService } from './../../services/upload-image/upload-image.service';
-import { fileValidator } from 'src/app/utils/file-validator';
-import { FileValidator } from 'src/app/models/file-validator.model';
 
 @Component({
   selector: 'app-profile',
@@ -71,23 +69,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  upload(e: Event) {
-    const file = (<HTMLInputElement>e.target).files;
-    if (file) {
-      const validatedFile: FileValidator = fileValidator(file);
-      if (!validatedFile.message) {
-        validatedFile.file &&
-          this.storage
-            .uploadImage(
-              validatedFile.file,
-              'profile',
-              this.user?.photo || null
-            )
-            .then((photo) => this.auth.updateProfileDetails({ photo }));
-        return;
-      }
-      this.toastr.openSnackBar(validatedFile?.message, 'error');
-    }
+  upload(file: File) {
+    this.storage
+      .uploadImage(file, 'profile', this.user?.photo || null)
+      .then((photo) => this.auth.updateProfileDetails({ photo }));
   }
   ngOnDestroy() {
     this.profileSubscription.unsubscribe();

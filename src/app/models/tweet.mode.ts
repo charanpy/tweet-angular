@@ -1,8 +1,8 @@
-export interface Tweet {
-  id: String;
-  title: String;
-  tweet: String;
-  hashtags: String[] | [];
+export interface TweetModel {
+  id: string;
+  title: string;
+  tweet: string;
+  hashtags?: string[] | [];
   date: any;
   photo?: string;
 }

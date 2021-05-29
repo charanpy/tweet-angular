@@ -11,9 +11,7 @@ export class DialogBoxComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public image: any,
     private dialogRef: MatDialogRef<DialogBoxComponent>
-  ) {
-    console.log(image);
-  }
+  ) {}
 
   ngOnInit(): void {}
 

@@ -26,6 +26,9 @@ export class AuthService implements OnDestroy {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
+  getUserById(id: string) {
+    return this.firestore.collection('users').doc(id).get().toPromise();
+  }
   getUser() {
     return this.auth.authState;
   }

@@ -29,6 +29,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { SearchTweetsComponent } from './pages/search-tweets/search-tweets.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { SelectImageComponent } from './components/add-tweet/select-image/select-image.component';
+import { TweetItemComponent } from './components/tweet-item/tweet-item.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SelectImageComponent } from './components/add-tweet/select-image/select
     SearchTweetsComponent,
     DialogBoxComponent,
     SelectImageComponent,
+    TweetItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,16 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  SimpleChange,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'src/app/services/toatr/toastr.service';
 
 import { DialogBoxComponent } from '../../dialog-box/dialog-box.component';
-import { dialogOptions } from 'src/app/pages/add-tweet/utils';
+import { dialogOptions } from 'src/app/components/add-tweet/select-image/utils';
 import { fileValidator } from 'src/app/utils/file-validator';
 import { FileValidator } from './../../../models/file-validator.model';
 
@@ -18,17 +22,30 @@ import { FileValidator } from './../../../models/file-validator.model';
   templateUrl: './select-image.component.html',
   styleUrls: ['./select-image.component.scss'],
 })
-export class SelectImageComponent implements OnInit, OnDestroy {
+export class SelectImageComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() Component: string = 'tweet';
+  @Input() loading: boolean = false;
+
   selectedImage: File | null = null;
   reader: FileReader = new FileReader();
   readerSubscription: any = '';
   url: any = '';
-  @Output() sendSelectedImage = new EventEmitter<File>();
+
+  @Output() sendSelectedImage = new EventEmitter<File | void>();
+  @Output() selectedProfileImage = new EventEmitter<File>();
 
   constructor(private toastr: ToastrService, private matDialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.loading, 'im');
+  }
 
+  ngOnChanges(change: SimpleChanges) {
+    const loading: SimpleChange = change.loading.currentValue;
+    if (loading) {
+      this.selectedImage = null;
+    }
+  }
   selectImage(e: Event) {
     const fileInput = <HTMLInputElement>e.target;
     const file = (<HTMLInputElement>e.target).files;
@@ -54,8 +71,16 @@ export class SelectImageComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendProfileImage() {
+    if (this.selectedImage) {
+      this.selectedProfileImage.emit(this.selectedImage);
+      this.selectedImage = null;
+    }
+  }
+
   resetImage() {
     this.selectedImage = null;
+    this.sendSelectedImage.emit();
   }
 
   openDialog() {

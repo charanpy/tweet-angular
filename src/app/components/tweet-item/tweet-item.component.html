@@ -1,0 +1,18 @@
+<mat-card class="card">
+  <mat-card-header>
+    <img mat-card-avatar class="header-image" [src]="getProfileImage()" />
+    <mat-card-title class="custom-font title">{{ user }}</mat-card-title>
+    <mat-card-subtitle>{{ tweet?.title }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{ tweet?.tweet }}
+    </p>
+  </mat-card-content>
+  <!-- <img mat-card-image src="assets/user.png" alt="Photo of a Shiba Inu" /> -->
+
+  <mat-card-actions>
+    <mat-icon class="icon like">favorite_border</mat-icon>
+    <mat-icon class="icon">comment</mat-icon>
+  </mat-card-actions>
+</mat-card>

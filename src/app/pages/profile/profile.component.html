@@ -8,8 +8,13 @@
           width="120"
         />
         <figcaption class="mat-body green icon" for="file">
-          <label for="file" class="icon">Change Profile Photo</label>
-          <input type="file" id="file" (change)="upload($event)" />
+          <app-select-image
+            [Component]="'profile'"
+            (selectedProfileImage)="upload($event)"
+            >Change Profile Photo</app-select-image
+          >
+          <!-- <label for="file" class="icon">Change Profile Photo</label>
+          <input type="file" id="file" (change)="upload($event)" /> -->
         </figcaption>
       </figure>
       <form class="flex-column flex-center" (submit)="onEditProfile()">

@@ -1,3 +1,5 @@
+import { TweetModel } from './../../models/tweet.mode';
+import { TweetService } from './../../services/tweet/tweet.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private auth: AuthService) {}
+  tweets: TweetModel[] | [] = [];
+  loading: boolean = true;
+  constructor(private auth: AuthService, private tweetService: TweetService) {}
 
   ngOnInit(): void {
     this.auth.updateProfile();
+    this.tweetService
+      .getAllTweets()
+      .then((tweet) => (this.tweets = tweet as TweetModel[]))
+      .finally(() => (this.loading = false));
   }
 
   async onSignOut() {

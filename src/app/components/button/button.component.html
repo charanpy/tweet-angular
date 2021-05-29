@@ -1,6 +1,7 @@
 <button
   mat-button
   class="button"
+  [disabled]="disabled"
   [style.backgroundColor]="color"
   [type]="type"
   [ngClass]="[customFont ? 'custom-font' : '']"

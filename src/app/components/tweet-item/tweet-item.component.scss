@@ -1,0 +1,32 @@
+
+.card {
+ background:#181818;
+ color:white;
+ min-width: 400px;
+ margin-bottom:1rem;
+ transition: all 500ms ease-in-out;
+ border: .5px solid #212529;
+ border-radius:8px;
+
+ &:hover {
+   background: black;
+ }
+}
+
+header-image {
+  background-image: url('../../../assets/user.png');
+  background-size: cover;
+}
+
+.image {
+  width: 200px !important;
+}
+
+.title {
+  font-weight:400;
+  font-size:18px;
+}
+
+.like {
+  margin:0 1.8rem 0 .5rem;
+}
