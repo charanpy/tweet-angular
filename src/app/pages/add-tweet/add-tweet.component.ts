@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { UploadImageService } from './../../services/upload-image/upload-image.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from './../../services/toatr/toastr.service';
@@ -13,10 +14,11 @@ import { TweetService } from 'src/app/services/tweet/tweet.service';
   styleUrls: ['./add-tweet.component.scss'],
   providers: [TweetService],
 })
-export class AddTweetComponent implements OnInit {
+export class AddTweetComponent implements OnInit, OnDestroy {
   userId: string | null = null;
   selectedImage: File | null = null;
   loading = false;
+  userSubscription: Subscription = new Subscription();
 
   constructor(
     private auth: AuthService,
@@ -26,9 +28,9 @@ export class AddTweetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.auth.getId();
-    this.userId &&
-      this.tweet.getUserTweet(this.userId).then((res) => console.log(res));
+    this.userSubscription = this.auth.user.subscribe(
+      (user) => (this.userId = user.id)
+    );
   }
 
   OnPostTweet(f: NgForm) {
@@ -42,7 +44,7 @@ export class AddTweetComponent implements OnInit {
     const newTweet: Tweet = {
       id: this.userId!,
       title,
-      tweet,
+      tweet: tweet.split('#')[0],
       hashtags,
       date: this.auth.getTimestamp(),
     };
@@ -77,5 +79,9 @@ export class AddTweetComponent implements OnInit {
 
   showToastr() {
     return this.toastr.openSnackBar('Tweet added successfully');
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

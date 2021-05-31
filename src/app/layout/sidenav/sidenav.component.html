@@ -23,24 +23,28 @@
           [iconName]="'home'"
           [routeName]="'Home'"
           [navigateTo]="'/'"
+          [active]="active"
         ></app-nav-items>
         <app-nav-items
           (actionEmitter)="onNavClick($event)"
           [iconName]="'account_circle'"
           [routeName]="'Profile'"
           [navigateTo]="'/profile'"
+          [active]="active"
         ></app-nav-items>
         <app-nav-items
           (actionEmitter)="onNavClick($event)"
           [iconName]="'search'"
           [routeName]="'Search'"
           [navigateTo]="'/search'"
+          [active]="active"
         ></app-nav-items>
         <app-nav-items
           (actionEmitter)="onNavClick($event)"
           [iconName]="'send'"
           [routeName]="'Tweets'"
-          [navigateTo]="'/tweets'"
+          [navigateTo]="'/user-tweets'"
+          [active]="active"
         ></app-nav-items>
       </div>
       <div class="logout-container">
@@ -53,7 +57,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <app-header></app-header>
+      <app-header *ngIf="active !== '/auth'"></app-header>
 
       <ng-content></ng-content>
     </mat-sidenav-content>

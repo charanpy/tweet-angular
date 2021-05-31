@@ -41,7 +41,7 @@ export class SelectImageComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    const loading: SimpleChange = change.loading.currentValue;
+    const loading: SimpleChange = change.loading?.currentValue;
     if (loading) {
       this.selectedImage = null;
     }

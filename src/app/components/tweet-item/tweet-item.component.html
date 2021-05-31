@@ -1,18 +1,47 @@
-<mat-card class="card">
+<mat-card class="card icon mb">
   <mat-card-header>
     <img mat-card-avatar class="header-image" [src]="getProfileImage()" />
-    <mat-card-title class="custom-font title">{{ user }}</mat-card-title>
+    <mat-card-title class="custom-font title"
+      >{{ user?.username }}{{ "  "
+      }}<span class="time">{{ tweet?.date | timeAgo }}</span></mat-card-title
+    >
     <mat-card-subtitle>{{ tweet?.title }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
       {{ tweet?.tweet }}
     </p>
+    <ng-container *ngIf="tweet?.hashtags?.length">
+      <span *ngFor="let hashtag of tweet?.hashtags" class="hashtag">
+        <a [routerLink]="['/search', hashtag]" class="green custom-font"
+          >#{{ hashtag }}</a
+        >
+      </span>
+    </ng-container>
   </mat-card-content>
-  <!-- <img mat-card-image src="assets/user.png" alt="Photo of a Shiba Inu" /> -->
 
-  <mat-card-actions>
-    <mat-icon class="icon like">favorite_border</mat-icon>
-    <mat-icon class="icon">comment</mat-icon>
+  <div class="flex-column flex-center green custom-font" (click)="openDialog()">
+    {{ tweet?.photo && "View Image" }}
+  </div>
+
+  <mat-card-actions class="action" *ngIf="!loading">
+    <mat-icon
+      class="icon like"
+      (click)="likeDislikeTweet()"
+      [ngClass]="{ green: liked }"
+      >favorite_border</mat-icon
+    >
+
+    <mat-icon class="icon like" (click)="navigateTo()">comment</mat-icon>
+    <mat-icon
+      *ngIf="id === tweet?.id"
+      class="icon del"
+      (click)="deleteTweet(tweet?.tweetId!)"
+      >delete</mat-icon
+    >
   </mat-card-actions>
+  <p class="action like">
+    {{ likes > 0 ? likes : "" }}
+    {{ likes > 0 ? (likes > 1 ? "likes" : "like") : "" }}
+  </p>
 </mat-card>

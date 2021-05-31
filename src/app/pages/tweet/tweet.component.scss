@@ -1,0 +1,30 @@
+@import 'src/color';
+
+.comments-container {
+  max-height: 40vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  background-color: black;
+  padding: 2rem;
+  margin-bottom:1.2rem;
+  position: relative;
+
+  
+  &::-webkit-scrollbar {
+    min-height: 5px;
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    margin: 1rem 0;
+    background: $color-green;
+    min-height: 5px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 3px $color-green;
+    box-shadow: inset 0 0 3px $color-green;
+  }
+}
+
+ .input {
+   margin-bottom: 5rem;
+ }

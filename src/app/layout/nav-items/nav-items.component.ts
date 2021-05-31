@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-items',
@@ -13,11 +12,11 @@ export class NavItemsComponent implements OnInit {
   routeName: string = '';
   @Input()
   navigateTo: string = '';
+  @Input()
+  active: string = '';
+
   @Output() actionEmitter = new EventEmitter<string | undefined>();
-  currentRouter: string = '';
-  constructor(private router: Router) {
-    this.currentRouter = this.router.url;
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 

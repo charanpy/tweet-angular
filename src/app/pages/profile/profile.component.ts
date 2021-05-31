@@ -33,11 +33,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('triggered');
-    this.profileSubscription = this.auth.subscribeToUser().subscribe((user) => {
-      this.user = user as UserModel;
-      console.log(user, 333);
-      this.auth.setUserInfo(user as UserModel);
-    });
+    this.profileSubscription = this.auth.user.subscribe(
+      (user) => (this.user = user)
+    );
   }
 
   onEditProfile(): void {
@@ -61,10 +59,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         return;
       }
       this.auth
-        .updateProfileDetails({
-          username,
-          bio: bio || 'Tweetdev user',
-        })
+        .updateProfileDetails(
+          {
+            username,
+            bio: bio || 'Tweetdev user',
+          },
+          this.user?.id!
+        )
         .then(() => this.toastr.openSnackBar('Profile updated', 'success'));
     }
   }
@@ -72,7 +73,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   upload(file: File) {
     this.storage
       .uploadImage(file, 'profile', this.user?.photo || null)
-      .then((photo) => this.auth.updateProfileDetails({ photo }));
+      .then((photo) =>
+        this.auth.updateProfileDetails({ photo }, this.user?.id!)
+      );
   }
   ngOnDestroy() {
     this.profileSubscription.unsubscribe();

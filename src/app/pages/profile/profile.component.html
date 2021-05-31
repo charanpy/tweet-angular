@@ -1,55 +1,51 @@
-<app-sidenav>
-  <main class="app-content flex-column flex-center">
-    <section>
-      <figure class="flex-column flex-center">
-        <img
-          [src]="user?.photo ? user?.photo : 'assets/user.png'"
-          alt="user-profile"
-          width="120"
-        />
-        <figcaption class="mat-body green icon" for="file">
-          <app-select-image
-            [Component]="'profile'"
-            (selectedProfileImage)="upload($event)"
-            >Change Profile Photo</app-select-image
-          >
-          <!-- <label for="file" class="icon">Change Profile Photo</label>
+<section>
+  <figure class="flex-column flex-center">
+    <img
+      [src]="user?.photo ? user?.photo : 'assets/user.png'"
+      alt="user-profile"
+      width="120"
+    />
+    <figcaption class="mat-body green icon" for="file">
+      <app-select-image
+        [Component]="'profile'"
+        (selectedProfileImage)="upload($event)"
+        >Change Profile Photo</app-select-image
+      >
+      <!-- <label for="file" class="icon">Change Profile Photo</label>
           <input type="file" id="file" (change)="upload($event)" /> -->
-        </figcaption>
-      </figure>
-      <form class="flex-column flex-center" (submit)="onEditProfile()">
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input
-              matInput
-              type="text"
-              [value]="user?.username"
-              [disabled]="!editAction"
-              #username
-            />
-            <mat-icon matSuffix>account_circle</mat-icon>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Bio</mat-label>
-            <input
-              matInput
-              type="text"
-              [value]="user?.bio"
-              [disabled]="!editAction"
-              #bio
-            />
-            <mat-icon matSuffix>info</mat-icon>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </p>
-        <app-button [customFont]="true">
-          {{ editAction ? "SUBMIT" : "EDIT PROFILE" }}
-        </app-button>
-      </form>
-    </section>
-  </main>
-</app-sidenav>
+    </figcaption>
+  </figure>
+  <form class="flex-column flex-center" (submit)="onEditProfile()">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          [value]="user?.username"
+          [disabled]="!editAction"
+          #username
+        />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error></mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Bio</mat-label>
+        <input
+          matInput
+          type="text"
+          [value]="user?.bio"
+          [disabled]="!editAction"
+          #bio
+        />
+        <mat-icon matSuffix>info</mat-icon>
+        <mat-error></mat-error>
+      </mat-form-field>
+    </p>
+    <app-button [customFont]="true">
+      {{ editAction ? "SUBMIT" : "EDIT PROFILE" }}
+    </app-button>
+  </form>
+</section>

@@ -5,4 +5,5 @@ export interface TweetModel {
   hashtags?: string[] | [];
   date: any;
   photo?: string;
+  tweetId?: string;
 }

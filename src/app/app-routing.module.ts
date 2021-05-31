@@ -1,3 +1,5 @@
+import { TweetComponent } from './pages/tweet/tweet.component';
+import { UserTweetsComponent } from './pages/user-tweets/user-tweets.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -49,6 +51,24 @@ const routes: Routes = [
     component: SearchTweetsComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
+    children: [
+      {
+        path: ':hashtag',
+        component: SearchTweetsComponent,
+        canActivate: [AngularFireAuthGuard],
+      },
+    ],
+  },
+  {
+    path: 'user-tweets',
+    component: UserTweetsComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'tweet/:id',
+    component: TweetComponent,
+    canActivate: [AngularFireAuthGuard],
   },
   {
     path: '**',

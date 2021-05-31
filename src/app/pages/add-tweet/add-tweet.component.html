@@ -1,49 +1,26 @@
-<app-sidenav>
-  <main class="app-content flex-column flex-center">
-    <section class="header">
-      <h1 class="mat-body custom-font">Add Tweet</h1>
-    </section>
-    <form
-      #f="ngForm"
-      (ngSubmit)="OnPostTweet(f)"
-      class="flex-column flex-center"
-    >
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Title</mat-label>
-          <input
-            matInput
-            type="text"
-            minlength="2"
-            name="title"
-            ngModel
-            required
-          />
-          <mat-icon matSuffix>title</mat-icon>
-          <mat-error></mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Tweet body</mat-label>
-          <textarea
-            matInput
-            minlength="2"
-            name="tweet"
-            ngModel
-            required
-          ></textarea>
-          <mat-icon matSuffix>send</mat-icon>
-          <mat-error></mat-error>
-        </mat-form-field>
-      </p>
-      <mat-spinner diameter="30" *ngIf="loading"></mat-spinner>
-      <app-select-image
-        (sendSelectedImage)="setImage($event)"
-        [loading]="loading"
-        >Select Image</app-select-image
-      >
-      <app-button [customFont]="true" [disabled]="loading">POST</app-button>
-    </form>
-  </main>
-</app-sidenav>
+<section class="header">
+  <app-heading>Add Tweet</app-heading>
+</section>
+<form #f="ngForm" (ngSubmit)="OnPostTweet(f)" class="flex-column flex-center">
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" minlength="2" name="title" ngModel required />
+      <mat-icon matSuffix>title</mat-icon>
+      <mat-error></mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Tweet body</mat-label>
+      <textarea matInput minlength="2" name="tweet" ngModel required></textarea>
+      <mat-icon matSuffix>send</mat-icon>
+      <mat-error></mat-error>
+    </mat-form-field>
+  </p>
+  <mat-spinner diameter="30" *ngIf="loading"></mat-spinner>
+  <app-select-image (sendSelectedImage)="setImage($event)" [loading]="loading"
+    >Select Image</app-select-image
+  >
+  <app-button [customFont]="true" [disabled]="loading">POST</app-button>
+</form>

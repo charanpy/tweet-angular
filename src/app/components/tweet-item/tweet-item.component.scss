@@ -26,7 +26,31 @@ header-image {
   font-weight:400;
   font-size:18px;
 }
-
+.mb {
+  margin-top: 2rem;
+}
 .like {
-  margin:0 1.8rem 0 .5rem;
+  margin:0 1.8rem 0 .5rem!important;
+}
+
+a{
+  text-decoration: none;
+}
+.time {
+  font-weight: 200;
+  margin-left: .5rem;
+  font-size:10px;
+}
+
+.hashtag{
+  margin-right: .5rem;
+}
+
+.del{
+  color: red;
+}
+
+.action{
+  display: flex;
+  margin-bottom: 5px;
 }

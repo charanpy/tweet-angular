@@ -1,0 +1,21 @@
+<mat-card class="card icon mb">
+  <mat-card-header>
+    <img mat-card-avatar class="header-image" [src]="getImage()" />
+    <mat-card-title class="custom-font title">
+      {{ user?.username }}
+      <span class="time">{{ date | timeAgo }}</span></mat-card-title
+    >
+    <!-- <mat-card-subtitle>{{ tweet?.title }}</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ comment?.comment }}</p>
+  </mat-card-content>
+  <mat-card-actions class="action">
+    <mat-icon
+      class="icon del"
+      *ngIf="id === comment?.id"
+      (click)="deleteComment()"
+      >delete</mat-icon
+    >
+  </mat-card-actions>
+</mat-card>

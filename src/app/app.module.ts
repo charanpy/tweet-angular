@@ -31,6 +31,15 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 import { SelectImageComponent } from './components/add-tweet/select-image/select-image.component';
 import { TweetItemComponent } from './components/tweet-item/tweet-item.component';
 
+import { NgPipesModule } from 'ngx-pipes';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TweetsListComponent } from './components/tweets-list/tweets-list.component';
+import { HashtagTweetsComponent } from './pages/hashtag-tweets/hashtag-tweets.component';
+import { UserTweetsComponent } from './pages/user-tweets/user-tweets.component';
+import { TweetComponent } from './pages/tweet/tweet.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { HeadingComponent } from './components/heading/heading.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +56,16 @@ import { TweetItemComponent } from './components/tweet-item/tweet-item.component
     DialogBoxComponent,
     SelectImageComponent,
     TweetItemComponent,
+    SpinnerComponent,
+    TweetsListComponent,
+    HashtagTweetsComponent,
+    UserTweetsComponent,
+    TweetComponent,
+    CommentsComponent,
+    HeadingComponent,
   ],
   imports: [
+    NgPipesModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

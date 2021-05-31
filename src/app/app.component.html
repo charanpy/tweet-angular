@@ -1,4 +1,5 @@
-<main class="flex-column flex-center app-content" *ngIf="loading">
-  <mat-spinner diameter="60"></mat-spinner>
-</main>
-<router-outlet *ngIf="!loading"></router-outlet>
+<app-sidenav>
+  <main class="app-content flex-column flex-center">
+    <router-outlet></router-outlet>
+  </main>
+</app-sidenav>

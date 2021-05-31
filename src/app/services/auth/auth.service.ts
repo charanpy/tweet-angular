@@ -1,22 +1,36 @@
-import { Subscription } from 'rxjs';
+import { Subscription, of, Observable } from 'rxjs';
 import { UserModel } from '.././../models/user.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  user: UserModel | null = null;
+  id: string = '';
   subscription: Subscription = new Subscription();
+  user: Observable<any>;
 
   constructor(
     private auth: AngularFireAuth,
     private firestore: AngularFirestore
-  ) {}
+  ) {
+    this.user = this.auth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.firestore
+            .collection('users')
+            .doc(user.uid)
+            .valueChanges();
+        }
+        return of(null);
+      })
+    );
+  }
 
   signIn(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password);
@@ -31,10 +45,6 @@ export class AuthService implements OnDestroy {
   }
   getUser() {
     return this.auth.authState;
-  }
-
-  setUserInfo(user: UserModel) {
-    this.user = user;
   }
 
   setUser(uid: string) {
@@ -129,23 +139,26 @@ export class AuthService implements OnDestroy {
   }
 
   subscribeToUser() {
-    return this.firestore.doc(`users/${this.user?.id}`).valueChanges();
+    return this.firestore.doc(`users/${this.id}`).valueChanges();
   }
 
-  updateProfileDetails(userData: {
-    username?: string;
-    bio?: string;
-    photo?: string;
-  }) {
-    return this.firestore.doc(`users/${this.user?.id}`).update(userData);
-  }
-
-  getId() {
-    return this.user?.id || null;
+  updateProfileDetails(
+    userData: {
+      username?: string;
+      bio?: string;
+      photo?: string;
+    },
+    id: string
+  ) {
+    return this.firestore.doc(`users/${id}`).update(userData);
   }
 
   getTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
+  getdbTimestamp() {
+    return firebase.database.ServerValue.TIMESTAMP;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

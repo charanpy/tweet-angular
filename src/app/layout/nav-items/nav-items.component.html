@@ -1,8 +1,6 @@
 <li
   (click)="onClick(navigateTo)"
-  [ngClass]="
-    currentRouter === navigateTo || navigateTo === 'default' ? 'active' : ''
-  "
+  [ngClass]="active === navigateTo || navigateTo === 'default' ? 'active' : ''"
 >
   <mat-icon class="icon">{{ iconName }}</mat-icon>
   <span>{{ routeName }}</span>

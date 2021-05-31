@@ -1,0 +1,27 @@
+<ng-container>
+  <app-spinner *ngIf="loading"></app-spinner>
+
+  <app-tweets-list [tweets]="tweets" *ngIf="!loading"></app-tweets-list>
+  <app-heading>Comments</app-heading>
+  <section class="comments-container" *ngIf="comments.length">
+    <ng-container *ngFor="let comment of comments">
+      <app-comments
+        [comment]="comment"
+        [id]="userId"
+        [tweetId]="tweetId"
+      ></app-comments>
+    </ng-container>
+  </section>
+  <form class="flex-column flex-center input">
+    <mat-form-field appearance="outline">
+      <mat-label>Add Comment</mat-label>
+      <input matInput #comment required />
+      <mat-icon matSuffix>chat</mat-icon>
+      <mat-error></mat-error>
+    </mat-form-field>
+
+    <app-button [customFont]="true" (buttonClickAction)="addComment()"
+      >ADD COMMENT</app-button
+    >
+  </form>
+</ng-container>

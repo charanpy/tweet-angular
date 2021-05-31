@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   toggleSidebar() {
+    console.log('clicked');
     this.sidebar.toggle();
   }
 }

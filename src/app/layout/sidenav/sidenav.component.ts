@@ -1,6 +1,6 @@
 import { MatSidenav } from '@angular/material/sidenav';
 import { SidebarService } from './../../services/sidebar/sidebar.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import {
   ChangeDetectorRef,
@@ -19,6 +19,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class SidenavComponent implements OnDestroy {
   @ViewChild('snav', { static: true }) sidenav: MatSidenav | null = null;
   mobileQuery: MediaQueryList;
+  active: string = '';
   private _mobileQueryListener: () => void;
 
   constructor(
@@ -42,6 +43,11 @@ export class SidenavComponent implements OnDestroy {
     if (this.sidenav) {
       this.sidebar.setSidenav(this.sidenav);
     }
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationStart) {
+        this.active = e.url;
+      }
+    });
   }
 
   async onNavClick(e: string | undefined) {
