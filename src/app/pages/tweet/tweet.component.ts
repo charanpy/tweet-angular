@@ -38,7 +38,7 @@ export class TweetComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tweetSubscription.add(
       this.auth.user.subscribe((user) => {
-        this.userId = user.id;
+        this.userId = user?.id;
       })
     );
     this.router.params.subscribe((res) => {
@@ -87,20 +87,20 @@ export class TweetComponent implements OnInit, OnDestroy {
   }
 
   getComment() {
-    this.commentSub = this.tweetService
-      .getComment(this.tweets[0].tweetId!)
-      .on('value', (res) => {
-        if (res.val()) {
-          this.comments = Object.values(res.val());
-        } else {
-          this.comments = [];
-        }
-        this.loading = false;
-      });
+    this.commentSub = this.tweetService.getComment(this.tweets[0].tweetId!);
+
+    this.commentSub.on('value', (res: any) => {
+      if (res.val()) {
+        this.comments = Object.values(res.val());
+      } else {
+        this.comments = [];
+      }
+      this.loading = false;
+    });
   }
 
   ngOnDestroy() {
     this.tweetSubscription.unsubscribe();
-    this.commentSub.off('value');
+    this.commentSub && this.commentSub.off('value');
   }
 }

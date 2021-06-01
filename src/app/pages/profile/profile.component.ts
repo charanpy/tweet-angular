@@ -19,7 +19,7 @@ import { UploadImageService } from './../../services/upload-image/upload-image.s
 export class ProfileComponent implements OnInit, OnDestroy {
   user: UserModel | null = null;
   editAction: boolean = false;
-
+  loading: boolean = true;
   profileSubscription: Subscription = new Subscription();
 
   @ViewChild('username') username: ElementRef | null = null;
@@ -33,9 +33,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('triggered');
-    this.profileSubscription = this.auth.user.subscribe(
-      (user) => (this.user = user)
-    );
+    this.profileSubscription = this.auth.user.subscribe((user) => {
+      this.user = user;
+      this.loading = false;
+    });
   }
 
   onEditProfile(): void {

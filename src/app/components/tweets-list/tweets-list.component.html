@@ -1,9 +1,16 @@
 <ng-container *ngIf="tweets?.length">
   <ng-container *ngFor="let tweet of tweets">
-    <app-tweet-item [tweet]="tweet" [id]="id"></app-tweet-item>
+    <app-tweet-item
+      [tweet]="tweet"
+      [id]="id"
+      (deleteTweetAction)="deleteTweet($event)"
+    ></app-tweet-item>
   </ng-container>
 </ng-container>
 
-<h2 class="mat-body-1 custom-font flex-row flex-center" *ngIf="!tweets.length">
+<h2
+  class="mat-body-1 custom-font flex-row flex-center"
+  *ngIf="!tweets.length && searched"
+>
   No Tweets found!
 </h2>

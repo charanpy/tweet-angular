@@ -9,6 +9,7 @@ header{
   background-color:#0f0f0f;
   .brand-name {
     margin-left: 1rem;
+  
     .heading{
          margin-left: 1rem;
 
@@ -16,6 +17,10 @@ header{
          font-size: 25px;
          font-weight: 500;
          color: rgba(255, 255, 255, 1);
+
+         @media(min-width: 800px){
+           font-size: 20px;
+         }
        }
     }
    
@@ -24,6 +29,10 @@ header{
     margin-right: 2rem;
     color: #00e676;
     transition: all 500ms linear;
+
+    @media (max-width:800px) {
+      margin-right: 1rem;
+    }
     &:hover {
       color: white;
       transform: translateY(-7px);

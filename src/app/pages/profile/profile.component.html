@@ -1,4 +1,5 @@
-<section>
+<app-spinner *ngIf="loading"></app-spinner>
+<section *ngIf="!loading">
   <figure class="flex-column flex-center">
     <img
       [src]="user?.photo ? user?.photo : 'assets/user.png'"
@@ -11,8 +12,6 @@
         (selectedProfileImage)="upload($event)"
         >Change Profile Photo</app-select-image
       >
-      <!-- <label for="file" class="icon">Change Profile Photo</label>
-          <input type="file" id="file" (change)="upload($event)" /> -->
     </figcaption>
   </figure>
   <form class="flex-column flex-center" (submit)="onEditProfile()">

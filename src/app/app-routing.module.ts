@@ -18,7 +18,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { AddTweetComponent } from './pages/add-tweet/add-tweet.component';
 import { SearchTweetsComponent } from './pages/search-tweets/search-tweets.component';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth']);
 const redirectLoggedInHome = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [

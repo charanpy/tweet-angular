@@ -138,10 +138,6 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  subscribeToUser() {
-    return this.firestore.doc(`users/${this.id}`).valueChanges();
-  }
-
   updateProfileDetails(
     userData: {
       username?: string;
@@ -160,6 +156,7 @@ export class AuthService implements OnDestroy {
   getdbTimestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

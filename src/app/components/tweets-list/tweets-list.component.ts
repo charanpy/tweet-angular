@@ -10,6 +10,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 })
 export class TweetsListComponent implements OnInit, OnDestroy {
   @Input() tweets: TweetModel[] | [] = [];
+  @Input() searched: boolean = true;
   id: string = '';
   userSubscription: Subscription = new Subscription();
 
@@ -27,6 +28,9 @@ export class TweetsListComponent implements OnInit, OnDestroy {
     );
   }
 
+  deleteTweet(id: string) {
+    this.tweets = this.tweets.filter((tweet) => tweet.tweetId !== id);
+  }
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }

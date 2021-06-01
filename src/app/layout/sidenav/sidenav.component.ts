@@ -30,7 +30,8 @@ export class SidenavComponent implements OnDestroy {
     private auth: AuthService,
     private sidebar: SidebarService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia('(max-width: 800px)');
+
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
@@ -50,7 +51,13 @@ export class SidenavComponent implements OnDestroy {
     });
   }
 
+  close() {
+    this.sidenav?.close();
+  }
   async onNavClick(e: string | undefined) {
+    if (this.mobileQuery.matches) {
+      this.sidenav?.close();
+    }
     if (e === '/') {
       this.router.navigate(['']);
       return;

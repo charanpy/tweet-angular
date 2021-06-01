@@ -1,18 +1,21 @@
 <div class="nav-container" [class.nav-is-mobile]="mobileQuery.matches">
   <mat-sidenav-container
     class="nav-sidenav-container"
-    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+    [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
   >
     <mat-sidenav
       #snav
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="100"
+      [opened]="active !== '/auth'"
       class="nav flex-column nav-wrap"
-      opened
     >
       <div class="logo">
         <img src="/assets/img.png" width="50" alt="logo" />
+      </div>
+      <div class="menu-bar">
+        <mat-icon class="icon" (click)="close()">close</mat-icon>
       </div>
       <div class="nav-items">
         <div class="menu">

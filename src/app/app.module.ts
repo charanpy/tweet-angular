@@ -34,7 +34,6 @@ import { TweetItemComponent } from './components/tweet-item/tweet-item.component
 import { NgPipesModule } from 'ngx-pipes';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TweetsListComponent } from './components/tweets-list/tweets-list.component';
-import { HashtagTweetsComponent } from './pages/hashtag-tweets/hashtag-tweets.component';
 import { UserTweetsComponent } from './pages/user-tweets/user-tweets.component';
 import { TweetComponent } from './pages/tweet/tweet.component';
 import { CommentsComponent } from './components/comments/comments.component';
@@ -58,7 +57,6 @@ import { HeadingComponent } from './components/heading/heading.component';
     TweetItemComponent,
     SpinnerComponent,
     TweetsListComponent,
-    HashtagTweetsComponent,
     UserTweetsComponent,
     TweetComponent,
     CommentsComponent,

@@ -1,10 +1,18 @@
+import { UploadImageService } from './../../services/upload-image/upload-image.service';
 import { Router } from '@angular/router';
 import { ToastrService } from './../../services/toatr/toastr.service';
 import { TweetService } from 'src/app/services/tweet/tweet.service';
 import { UserModel } from './../../models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TweetModel } from './../../models/tweet.mode';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { dialogOptions } from 'src/app/components/add-tweet/select-image/utils';
@@ -17,18 +25,22 @@ import { dialogOptions } from 'src/app/components/add-tweet/select-image/utils';
 export class TweetItemComponent implements OnInit, OnDestroy {
   @Input() tweet: TweetModel | null = null;
   @Input() id: string = '';
+  @Output() deleteTweetAction = new EventEmitter<string>();
+
   user: UserModel | null = null;
   liked: boolean = false;
   likes: number = 0;
   loading: boolean = true;
   likeSubscription: any = '';
+  url: string = '';
 
   constructor(
     private auth: AuthService,
     private matDialog: MatDialog,
     private tweetService: TweetService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private uploadImage: UploadImageService
   ) {}
 
   getProfileImage() {
@@ -36,6 +48,9 @@ export class TweetItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.url = this.router.url;
+    console.log(this.url, 3333);
+
     this.likeSubscription = this.tweetService.getLikes(this.tweet?.tweetId!);
     this.likeSubscription.on('value', (res: any) => {
       const likes = res.val();
@@ -67,9 +82,15 @@ export class TweetItemComponent implements OnInit, OnDestroy {
   deleteTweet(id: string) {
     console.log(id);
 
-    this.tweetService
-      .deleteTweet(id)
-      .then(() => this.toastr.openSnackBar('Tweet deleted'));
+    this.tweetService.deleteTweet(id).then(() => {
+      this.toastr.openSnackBar('Tweet deleted');
+      if ((this.url = '/user-tweets')) {
+        this.deleteTweetAction.emit(id);
+      }
+      if (this.tweet?.photo) {
+        this.uploadImage.deleteImage(this.tweet?.photo);
+      }
+    });
   }
 
   likeDislikeTweet() {
